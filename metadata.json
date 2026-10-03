@@ -1,0 +1,6 @@
+{
+  "name": "QuestLife",
+  "description": "A mobile-first dark fantasy hunter RPG system interface that turns daily life into a game.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

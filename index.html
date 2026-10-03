@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // React Fast Refresh preamble detection guarantees
+      window.$RefreshReg$ = window.$RefreshReg$ || function() {};
+      window.$RefreshSig$ = window.$RefreshSig$ || function() { return function(type) { return type; }; };
+      window.__vite_plugin_react_preamble_installed__ = true;
+
+      // Silence benign dev server HMR websocket notices in sandboxed AI Studio preview
+      (function() {
+        const isViteNotice = function(arg) {
+          if (!arg) return false;
+          const str = typeof arg === 'string' ? arg : (arg.message || String(arg));
+          return typeof str === 'string' && (
+            str.includes('[vite]') ||
+            str.includes('WebSocket connection to') ||
+            str.includes('failed to connect to websocket')
+          );
+        };
+        const origError = console.error;
+        console.error = function(...args) {
+          if (args.some(isViteNotice)) return;
+          origError.apply(console, args);
+        };
+        const origWarn = console.warn;
+        console.warn = function(...args) {
+          if (args.some(isViteNotice)) return;
+          origWarn.apply(console, args);
+        };
+        const origLog = console.log;
+        console.log = function(...args) {
+          if (args.some(isViteNotice)) return;
+          origLog.apply(console, args);
+        };
+        const origDebug = console.debug;
+        console.debug = function(...args) {
+          if (args.some(isViteNotice)) return;
+          origDebug.apply(console, args);
+        };
+        const origInfo = console.info;
+        console.info = function(...args) {
+          if (args.some(isViteNotice)) return;
+          origInfo.apply(console, args);
+        };
+        window.addEventListener('error', function(e) {
+          if (e.message && isViteNotice(e.message)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          if (e.reason && isViteNotice(e.reason)) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>QuestLife</title>
+    <meta name="description" content="A mobile-first dark fantasy hunter RPG system interface that turns daily life into a game." />
+    <meta name="theme-color" content="#05070e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="QuestLife" />
+    
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:title" content="QuestLife" />
+    <meta property="og:description" content="A mobile-first dark fantasy hunter RPG system interface that turns daily life into a game." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#05070e] text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
